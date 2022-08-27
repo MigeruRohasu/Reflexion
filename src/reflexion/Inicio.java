@@ -351,23 +351,29 @@ public class Inicio extends javax.swing.JFrame {
     private void AñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirActionPerformed
 
         try {
-            Double.valueOf(Indice.getText());
-            Integer.valueOf(Distancia.getText());
+            if (Double.valueOf(Indice.getText()) >= 1) {
 
-            modelMaterial.addElement(Material.getText());
-            modelIndice.addElement(Indice.getText());
-            modelDistancia.addElement(Distancia.getText());
+                Double.valueOf(Indice.getText());
+                Integer.valueOf(Distancia.getText());
 
-            ListMaterial.setModel(modelMaterial);
-            ListIndice.setModel(modelIndice);
-            ListDistancia.setModel(modelDistancia);
+                modelMaterial.addElement(Material.getText());
+                modelIndice.addElement(Indice.getText());
+                modelDistancia.addElement(Distancia.getText());
 
-            Material.setText("");
-            Indice.setText("");
-            Distancia.setText("");
+                ListMaterial.setModel(modelMaterial);
+                ListIndice.setModel(modelIndice);
+                ListDistancia.setModel(modelDistancia);
 
-            Indice.setBackground(Color.WHITE);
-            Distancia.setBackground(Color.WHITE);
+                Material.setText("");
+                Indice.setText("");
+                Distancia.setText("");
+
+                Indice.setBackground(Color.WHITE);
+                Distancia.setBackground(Color.WHITE);
+            } else {
+                Indice.setBackground(Color.red);
+                Indice.setText("");
+            }
         } catch (Exception e) {
             Indice.setBackground(Color.red);
             Distancia.setBackground(Color.red);
@@ -466,7 +472,7 @@ public void paint(Graphics g) {
             g.fillRect(x, y, Integer.valueOf(strDistancia), Integer.valueOf(Grosor.getText()));//horizontal, vertical, largo, alto
 
             g.setColor(Color.BLACK);
-String mate= (String)modelMaterial.getElementAt(i);
+            String mate = (String) modelMaterial.getElementAt(i);
             g.drawString(mate, x, y);
 
             x = x + Integer.valueOf(strDistancia);
@@ -482,8 +488,8 @@ String mate= (String)modelMaterial.getElementAt(i);
         if (modelMaterial.getSize() > 0) {
             yf = 310 + (Integer.valueOf(Grosor.getText()) / 2);
 
-            xi = Math.sin(Integer.valueOf(Inclinacion.getText()) * (Math.PI / 180)) * 50;
-            yi = Math.cos(Integer.valueOf(Inclinacion.getText()) * (Math.PI / 180)) * 50;
+            yi = Math.sin(Double.valueOf(Inclinacion.getText()) * (Math.PI / 180)) * 50;
+            xi = Math.cos(Double.valueOf(Inclinacion.getText()) * (Math.PI / 180)) * 50;
 
             //System.out.println(xi + "  " + yi + "  " + xf + "  " + yf);
             g.setColor(Color.RED);
@@ -512,9 +518,7 @@ String mate= (String)modelMaterial.getElementAt(i);
                 double Grado1 = Grado;
                 Grado = Math.asin((iIndice * Math.sin(Grado * (Math.PI / 180))) / (fIndice)) * (180 / Math.PI);
 
-                 
-                    
-                 if(Grado>0) {
+                if (Grado > 0) {
                     System.out.println("Respuesta " + Grado);
                     modelGrados.addElement(Grado);
 
@@ -532,9 +536,9 @@ String mate= (String)modelMaterial.getElementAt(i);
 
                     xi = xf;
                     yi = yf;
-                }else{
+                } else {
                     System.out.println("entreeeeeeeeeee");
-                    Grado=Grado1;
+                    Grado = Grado1;
 
                     System.out.println("Respuesta " + Grado);
                     modelGrados.addElement(Grado);
@@ -554,33 +558,13 @@ String mate= (String)modelMaterial.getElementAt(i);
                     xi = xf;
                     yi = yf;
 
-
                     break;
-}
-
-//                System.out.println("Respuesta " + Grado);
-//                modelGrados.addElement(Grado);
-//
-//                xf = xi + Integer.valueOf(strDistancia);
-//                double h = Integer.valueOf(strDistancia) / Math.cos(Grado * (Math.PI / 180));
-//                System.out.println("h " + h);
-//                modelH.addElement(h);
-//                yf = yi - (h * Math.sin(Grado * (Math.PI / 180)));
-//
-//                System.out.println("yf  " + (h * Math.sin(Grado * (Math.PI / 180))));
-//                System.out.println((int) xi + " " + (int) yi + " " + (int) xf + " " + (int) yf + "\n\n");
-//
-//                g.setColor(Color.red);
-//                g.drawLine((int) xi, (int) yi, (int) xf, (int) yf);
-//
-//                xi = xf;
-//                yi = yf;
+                }
             }
             ListGrados.setModel(modelGrados);
             listH.setModel(modelH);
         } catch (Exception e) {
 
         }
-
     }
 }
